@@ -1,7 +1,7 @@
 CC = gcc
 CFLAGS = -std=c99 -Wall -pedantic
 
-all: hash.o htest1 htest2 htest3
+all: hash.o htest1 htest2 htest3 htest4
 
 hash.o: hash.c
 	$(CC) $(CFLAGS) -c hash.c -o hash.o
@@ -24,5 +24,11 @@ htest3.o:htest3.c
 htest3:htest3.o hash.o
 	$(CC) $(CFLAGS) htest3.o hash.o -o htest3
 
+htest4.o:htest4.c
+	$(CC) $(CFLAGS) -c htest4.c -o htest4.o
+
+htest4:htest4.o hash.o
+	$(CC) $(CFLAGS) htest4.o hash.o -o htest4
+
 clean:
-	rm -i hash.o htest1.o htest1 htest2.o htest2 htest3.o htest3
+	rm -i hash.o htest1.o htest1 htest2.o htest2 htest3.o htest3 htest4.o htest4
