@@ -102,5 +102,24 @@ void removeElement(struct Performance *performance, struct HashTable * table, vo
 }
 
 int hashAccuracy(struct HashTable * table){
+    int i = 0;
+    int hashIndex = 0;
+    int totalDifference = 0;
+    for(i = 0; i < table->capacity; i++ ){
+        if(table->data[i] != NULL){
+            hashIndex = table->hash(table->data[i],table->capacity);
+            if(i < hashIndex){
+                totalDifference += (hashIndex-table->capacity + i);
+            }
+            else{
+                totalDifference += i - hashIndex;
+            }
+        }
+    }
 
+    return(totalDifference);
+}
+
+void rehash(struct HashTable * table){
+    
 }

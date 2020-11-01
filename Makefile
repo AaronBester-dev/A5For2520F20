@@ -1,7 +1,7 @@
 CC = gcc
 CFLAGS = -std=c99 -Wall -pedantic
 
-all: hash.o htest1 
+all: hash.o htest1 htest2 htest3
 
 hash.o: hash.c
 	$(CC) $(CFLAGS) -c hash.c -o hash.o
