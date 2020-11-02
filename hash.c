@@ -62,7 +62,6 @@ int getIdx(struct Performance * performance, struct HashTable * table, void * sr
             comparResult = table->compar(src,table->data[index]);
             performance->reads++;
         }
-       
         
         if(comparResult == 0 ){
             return(index); 
@@ -97,9 +96,13 @@ void * getElement (struct Performance * performance, struct HashTable * table, v
 
 void removeElement(struct Performance *performance, struct HashTable * table, void * target){
     int index = getIdx(performance,table,target);
-    table->data[index] = NULL;
-    performance->writes++;
-    table->nel--;
+    if(index != -1){
+        
+        table->data[index] = NULL;
+        performance->writes++;
+        table->nel--;
+    }
+    
 }
 
 int hashAccuracy(struct HashTable * table){
@@ -110,10 +113,11 @@ int hashAccuracy(struct HashTable * table){
         if(table->data[i] != NULL){
             hashIndex = table->hash(table->data[i],table->capacity);
             if(i < hashIndex){
-                totalDifference += (hashIndex-table->capacity + i);
+                totalDifference += (table->capacity - hashIndex);
+                totalDifference += i;
             }
             else{
-                totalDifference += i - hashIndex;
+                totalDifference += (i - hashIndex);
             }
         }
     }
