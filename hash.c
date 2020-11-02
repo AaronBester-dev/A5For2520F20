@@ -60,8 +60,9 @@ int getIdx(struct Performance * performance, struct HashTable * table, void * sr
         
         if(table->data[index] != NULL){
             comparResult = table->compar(src,table->data[index]);
+            performance->reads++;
         }
-        performance->reads++;
+       
         
         if(comparResult == 0 ){
             return(index); 
