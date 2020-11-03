@@ -2,6 +2,8 @@
 #include <stdlib.h>
 #include <string.h>
 #include "hash.h"
+
+/*Make and allocates memory for a new performance struct */
 struct Performance * newPerformance(){
     struct Performance * perf = malloc(sizeof(struct Performance));
     perf->frees = 0;
@@ -10,7 +12,7 @@ struct Performance * newPerformance(){
     perf->writes = 0;
     return(perf);
 }
-
+/*Makes and allocates memory for a new hashtable structure */
 struct HashTable *createTable(struct Performance * performance, unsigned int capacity, int(*hash)(void *, int ),int (*compar)(const void *, const void *)){
     struct HashTable * newHashTable = malloc(sizeof(struct HashTable));
     int i = 0;
@@ -30,7 +32,7 @@ struct HashTable *createTable(struct Performance * performance, unsigned int cap
 
     return(newHashTable);
 }
-
+/*Adds element to the necessary location in hashtable*/
 void addElement(struct Performance * performance, struct HashTable * table, void * src){
     int index = table->hash(src,table->capacity);
     
@@ -50,7 +52,7 @@ void addElement(struct Performance * performance, struct HashTable * table, void
     table->nel++;
     performance->writes++;
 }
-
+/*Gets the id of whatever element the user wants. If element can't be found -1 is returned*/
 int getIdx(struct Performance * performance, struct HashTable * table, void * src){
     int index = table->hash(src,table->capacity);
     int timesRun = 0;
@@ -76,13 +78,13 @@ int getIdx(struct Performance * performance, struct HashTable * table, void * sr
     
     return(-1);
 }
-
+/*Frees the hashtable*/
 void freeTable(struct Performance * performance, struct HashTable * table){
     free(table->data); 
     free(table);
     performance->frees++;
 }
-
+/*gets element from a hashtable. If element can't be found it returns null */
 void * getElement (struct Performance * performance, struct HashTable * table, void * src){
     int index = getIdx(performance,table,src);
     
@@ -93,7 +95,7 @@ void * getElement (struct Performance * performance, struct HashTable * table, v
         return(table->data[index]);
     }
 }
-
+/*Removes a element from the hashtable*/
 void removeElement(struct Performance *performance, struct HashTable * table, void * target){
     int index = getIdx(performance,table,target);
     if(index != -1){
@@ -104,7 +106,7 @@ void removeElement(struct Performance *performance, struct HashTable * table, vo
     }
     
 }
-
+/*Calculates the hashaccuracy of the hashtable*/
 int hashAccuracy(struct HashTable * table){
     int i = 0;
     int hashIndex = 0;
@@ -124,7 +126,7 @@ int hashAccuracy(struct HashTable * table){
 
     return(totalDifference);
 }
-
+/*Rehashes each element in order to improve hashaccuracy*/
 void rehash(struct HashTable * table){
     int i = 0;
     int hashIndex = 0;
