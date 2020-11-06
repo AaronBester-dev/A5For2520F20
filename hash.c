@@ -130,7 +130,7 @@ int hashAccuracy(struct HashTable * table){
 void rehash(struct HashTable * table){
     int i = 0;
     int hashIndex = 0;
-    
+   
     for(i = 0; i < table->capacity; i++){
         if(table->data[i] != NULL){
             hashIndex = table->hash(table->data[i], table->capacity);
@@ -139,6 +139,7 @@ void rehash(struct HashTable * table){
                     if(table->data[hashIndex] == NULL){
                         table->data[hashIndex] = table->data[i];
                         table->data[i] = NULL;
+                        hashIndex = i;
                     }
                     else{
                         hashIndex++;
