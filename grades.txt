@@ -8,7 +8,7 @@
  8                                             getIdx: 1
  9                                             getIdx: 1
 10                                         getElement: 1
-11                                      removeElement: 0
+11                                      removeElement: 1
 12                                          freeTable: 1
 13                                       hashAccuracy: 1
 14                                       hashAccuracy: 1
@@ -19,4 +19,4 @@
 19                                  code has comments: 1
 20                                   code is indented: 1
 ========================================================
-Total:                                             19/20
+Total:                                             20/20
